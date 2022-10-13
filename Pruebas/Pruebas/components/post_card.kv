@@ -1,0 +1,132 @@
+<PostCard>:
+    id: sepa
+    md_bg_color: rgba(app.purpura)
+    orientation: 'vertical'
+    size_hint_y: None
+    height: "420dp"
+    spacing: 2
+    elevation: 0
+
+    MDBoxLayout:
+        padding: 2
+        adaptive_height: True
+
+        TwoLineAvatarListItem:
+            text: f'[b][color={app.blancop}][size=16]{root.username}[/size][/color][/b]'
+            secondary_text: f"[font=Cambria][color={app.blancop}][size=14]Roberto, Maria, Perez[/size][/color]"
+            divider: None
+            _no_ripple_effect: True
+            
+            ImageLeftWidget:
+                source: root.avatar 
+                radius: [20, ]
+                pos_hint: {'center_y': 0.45}
+        
+        MDIconButton:
+            icon: 'dots-vertical'
+            theme_icon_color: "Custom"
+            icon_color: rgba(app.blancop)
+            pos_hint: {"center_y": .5}
+            on_release:
+                root.show_opciones()
+    
+    # Post
+    MDFloatLayout:
+        MDCard:
+            radius: 16
+            md_bg_color: "grey"
+            pos_hint: {"center_x": .5, "center_y": .5}
+            size_hint: .9, .9
+            FitImage:
+                adaptive_height: True
+                source: root.post
+                radius: 7, 7, 7, 7    
+
+        MDIconButton:
+            icon: "arrow-right-drop-circle"
+            icon_size: "44sp"
+            theme_icon_color: "Custom"
+            icon_color: rgba(app.purpura)
+            pos_hint: {"center_x": .5, "center_y": .5}
+
+        
+
+    # Reactions
+    MDBoxLayout:
+        padding: 5, 0, 0, 0         
+        spacing: 0
+        adaptive_height: True 
+
+        OneLineIconListItem:
+            text: f"[color={app.blancop}][size=18]57[/size][/color]"
+            divider: None
+            _no_ripple_effect: True
+            
+            IconLeftWidget:
+                icon: "star-outline"
+                icon_size: "30sp"
+                theme_icon_color: "Custom"
+                icon_color: rgba(app.blancop)
+                pos_hint: {"center_y": .55}
+                on_release: 
+                    root.show_estrellas()
+                    self.icon = "star" \
+                    if self.icon == "star-outline" else "star-outline"
+               
+        OneLineIconListItem:
+            text: f"[color={app.blancop}][size=18]23[/size][/color]"
+            divider: None
+            _no_ripple_effect: True
+
+            IconLeftWidget:
+                icon: "comment"
+                icon_size: "30sp"
+                theme_icon_color: "Custom"
+                icon_color: rgba(app.blancop)
+                on_release:          
+                    app.root.current = "comments"
+
+        
+
+
+
+    # MDBoxLayout:
+    #     orientation: 'vertical'
+    #     padding: 2, 0, 0, 0  
+    #     spacing: 1
+    #     adaptive_height: True 
+
+
+    # MDBoxLayout:
+    #     padding: 5, 0, 0, 0
+    #     spacing: 2
+    #     adaptive_height: True 
+
+    #     FitImage:
+    #         source: root.profile_pic
+    #         size_hint: None, None
+    #         size: 20, 20
+    #         radius: [20, ]
+        
+    #     HalfOpacityLabel:
+    #         text: 'Add a comment...'
+    
+    # MDBoxLayout:
+    #     padding: 9, 0, 0, 0
+    #     spacing: 0
+    #     adaptive_height: True 
+
+    #     HalfOpacityLabel:
+    #         font_size: 10
+    #         text: f'{root.posted_ago} ago'
+
+
+
+
+# <MyLabel@MDLabel>
+#     adaptive_height: True
+#     font_size: 12
+
+# <HalfOpacityLabel@MyLabel>:
+#     theme_text_color: 'Custom'
+#     text_color: 0, 0, 0, 0.5

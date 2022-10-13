@@ -1,0 +1,1299 @@
+#:import md_icons kivymd.icon_definitions.md_icons
+#:import BottomNav components.bottom_nav.BottomNav
+#:import Estrellas components.stardialog.Estrellas
+
+
+<LoginWindow>:
+    
+    name: "login"
+    passwdinput: wdcontra
+    #typeuser: tyu
+    MDFloatLayout:
+        md_bg_color: rgba(app.purpura)
+        MDLabel:
+            markup: True
+            text: '[font=Cambria][b][color=F2E7FE]Trasy[/color][/b]'
+            #color: rgba(app.blancop)
+            pos_hint: {'center_x': .5, "center_y": .93}
+            # size_hint_x: .35 / para mover de izquierda a derecha las cosas segun un porcentaje
+            halign: 'center'
+            font_size: "10sp"
+            font_style: "H3"
+        MDLabel:
+            text: 'Iniciar sesion'
+            color: rgba(app.blancop)
+            pos_hint: {'center_x': .5, "center_y": .67}
+            # size_hint_x: .35 / para mover de izquierda a derecha las cosas segun un porcentaje
+            halign: 'center'
+            font_name: 'Cambria'
+            font_size: "30sp"
+        MDFloatLayout:
+            size_hint: .8, .07
+            pos_hint: {'center_x': .5, 'center_y': .55}
+            canvas:
+                Color:
+                    rgb: rgba(245, 245, 245, 255)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [4]
+            TextInput:
+                id: correo
+                hint_text: "Correo"
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                height: self.minimum_height
+                multiline: False
+                hint_text_color: rgba(app.gris)
+                background_color: 0,0,0,0
+                padding: 18
+                font_name: 'Cambria'
+                font_size: '20sp'
+        MDFloatLayout:
+            size_hint: .8, .07
+            pos_hint: {'center_x': .5, 'center_y': .43}
+            canvas:
+                Color:
+                    rgb: rgba(245, 245, 245, 255)
+                RoundedRectangle:
+                    size: self.size 
+                    pos: self.pos
+                    radius: [4]
+            TextInput:
+                id: wdcontra
+                hint_text: "Contraseña"
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                helper_text: "Debe tener al menos 8 caracteres"
+                height: self.minimum_height
+                multiline: False
+                password: app.valor
+                hint_text_color: rgba(app.gris)
+                background_color: 0,0,0,0
+                padding: 18
+                font_name: 'Cambria'
+                font_size: '20sp'
+            MDIconButton:
+                icon: "eye"
+                theme_icon_color: "Custom"
+                icon_color: rgba(app.gris)
+                pos_hint: {"center_x": .9, "center_y": .5}
+                background_down: ''
+                background_normal: ''
+                on_press: root.visibilidad()
+                
+        MDTextButton:
+            markup: True
+            text: '[font=Cambria][color=F2E7FE]¿Nuevo usuario? [/color][font=Cambria][u][color=F2E7FE]Registrate[/color][/u]'
+            halign: 'center'
+            font_size: "14sp"
+            font_name: 'Cambria'
+            pos_hint: {'center_x': .5, 'center_y': .35}
+            on_release:
+                root.manager.transition.direction = "left"
+                app.root.current = "register"
+        MDCheckbox:
+            color: rgba(app.blancop)
+            size_hint: None, None
+            size: "46dp", "46dp"
+            pos_hint: {'center_x': .13, 'center_y': .30}
+        MDLabel:
+            text: 'Permanecer conectado'
+            color: rgba(app.blancop)
+            pos_hint: {'center_x': .33, "center_y": .30}
+            # size_hint_x: .35 / para mover de izquierda a derecha las cosas segun un porcentaje
+            halign: 'center'
+            font_name: 'Cambria'
+            font_size: "14sp"   
+        MDTextButton:
+            markup: True
+            text: '[font=Cambria][u][color=F2E7FE]Contraseña olvidada[/color][/u]'
+            pos_hint: {'center_x': .74, "center_y": .30}
+            halign: 'center'
+            font_size: "14sp"
+        Button:
+            text:'Iniciar sesion'
+            font_name: "Cambria"
+            size_hint: .5, .06
+            font_size: '20sp'
+            pos_hint: {'center_x': .5, 'center_y': .21}
+            background_color: 0,0,0,0
+            on_release: 
+                root.manager.transition.direction = "up"
+                app.root.current = "home" if app.recibir_datos(correo,wdcontra) == 1 else app.limpiar_datos_login(correo,wdcontra)
+                
+            canvas.before:
+                Color:
+                    rgba: rgba(app.purpuraOscuro)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [4]
+
+<RegisterWindow>
+    name: "register"
+
+    calendarior: fechadatet
+    MDFloatLayout:
+        md_bg_color: rgba(app.purpura)
+        MDLabel:
+            markup: True
+            text: '[font=Cambria][b][color=F2E7FE]Trasy[/color][/b]'
+            #color: rgba(app.blancop)
+            pos_hint: {'center_x': .5, "center_y": .93}
+            # size_hint_x: .35 / para mover de izquierda a derecha las cosas segun un porcentaje
+            halign: 'center'
+            font_size: "10sp"
+            font_style: "H3"
+        Button:
+            size_hint: .10, .05
+            pos_hint: {"center_x": .12, "center_y": .925}
+            background_color: 0,0,0,0
+            on_press: 
+                root.manager.transition.direction = "right"
+                app.root.current = "login"
+            Image:
+                source: 'assets/images/chevron-left.png'
+                size: "126dp", "126dp"
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+        MDLabel:
+            markup: True
+            text: '[b][color=F2E7FE]Registro[/color][/b]'
+            pos_hint: {'center_x': .6, "center_y": .825}
+            halign: 'left'
+            font_size: "22sp"
+        MDFloatLayout:
+            size_hint: .8, .07
+            pos_hint: {'center_x': .5, 'center_y': .75}
+            canvas:
+                Color:
+                    rgb: rgba(245, 245, 245, 255)
+                RoundedRectangle:
+                    size: self.size 
+                    pos: self.pos
+                    radius: [4]
+            TextInput:
+                hint_text: "Nombre"
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                height: self.minimum_height
+                multiline: False
+                hint_text_color: rgba(app.gris)
+                background_color: 0,0,0,0
+                padding: 18
+                font_name: 'Cambria'
+                font_size: '20sp'
+        MDFloatLayout:
+            size_hint: .8, .07
+            pos_hint: {'center_x': .5, 'center_y': .65}
+            canvas:
+                Color:
+                    rgb: rgba(245, 245, 245, 255)
+                RoundedRectangle:
+                    size: self.size 
+                    pos: self.pos
+                    radius: [4]
+            TextInput:
+                hint_text: "Apellido"
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                height: self.minimum_height
+                multiline: False
+                hint_text_color: rgba(app.gris)
+                background_color: 0,0,0,0
+                padding: 18
+                font_name: 'Cambria'
+                font_size: '20sp'
+        MDFloatLayout:
+            size_hint: .8, .07
+            pos_hint: {'center_x': .5, 'center_y': .55}
+            canvas:
+                Color:
+                    rgb: rgba(245, 245, 245, 255)
+                RoundedRectangle:
+                    size: self.size 
+                    pos: self.pos
+                    radius: [4]
+            TextInput:
+                hint_text: "Correo"
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                height: self.minimum_height
+                multiline: False
+                hint_text_color: rgba(app.gris)
+                background_color: 0,0,0,0
+                padding: 18
+                font_name: 'Cambria'
+                font_size: '20sp'
+        MDFloatLayout:
+            size_hint: .8, .07
+            pos_hint: {'center_x': .5, 'center_y': .45}
+            canvas:
+                Color:
+                    rgb: rgba(245, 245, 245, 255)
+                RoundedRectangle:
+                    size: self.size 
+                    pos: self.pos
+                    radius: [4]
+            TextInput:
+                id: fechadatet
+                hint_text: "Fecha Nacimiento"
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                height: self.minimum_height
+                multiline: False
+                hint_text_color: rgba(app.gris)
+                background_color: 0,0,0,0
+                padding: 18
+                font_name: 'Cambria'
+                font_size: '20sp' 
+            MDIconButton:
+                icon: "calendar-edit"
+                theme_icon_color: "Custom"
+                icon_color: rgba(app.gris)
+                pos_hint: {"center_x": .9, "center_y": .5}
+                background_down: ''
+                background_normal: ''
+                on_press: root.abrircalendario()              
+
+        MDFloatLayout:
+            size_hint: .8, .07
+            pos_hint: {'center_x': .5, 'center_y': .35}
+            canvas:
+                Color:
+                    rgb: rgba(245, 245, 245, 255)
+                RoundedRectangle:
+                    size: self.size 
+                    pos: self.pos
+                    radius: [4]
+            TextInput:
+                id: contone
+                hint_text: "Contraseña"
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                height: self.minimum_height
+                multiline: False
+                hint_text_color: rgba(app.gris)
+                background_color: 0,0,0,0
+                padding: 18
+                font_name: 'Cambria'
+                font_size: '20sp'
+        MDFloatLayout:
+            size_hint: .8, .07
+            pos_hint: {'center_x': .5, 'center_y': .25}
+            canvas:
+                Color:
+                    rgb: rgba(245, 245, 245, 255)
+                RoundedRectangle:
+                    size: self.size 
+                    pos: self.pos
+                    radius: [4]
+            TextInput:
+                id: contwo
+                hint_text: "Confirmar contraseña"
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                height: self.minimum_height
+                multiline: False
+                hint_text_color: rgba(app.gris)
+                background_color: 0,0,0,0
+                padding: 18
+                font_name: 'Cambria'
+                font_size: '20sp'
+        Button:
+            text:'Registrarse'
+            font_name: "Cambria"
+            size_hint: .5, .06
+            font_size: '20sp'
+            pos_hint: {'center_x': .5, 'center_y': .15}
+            background_color: 0,0,0,0
+            on_press: 
+                root.manager.transition.direction = "left"
+                if (contone.text == contwo.text and contone.text != ""):\
+                app.root.current = "student" 
+                else:\
+                root.show_error_register(contone,contwo)
+                
+
+
+
+                # contone.text =! "";\
+                # contwo.text =! "";\
+            canvas.before:
+                Color:
+                    rgba: rgba(app.purpuraOscuro)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [4]
+
+<StudentWindow>:
+    name: "student"
+
+    MDFloatLayout:
+        md_bg_color: rgba(app.purpura)
+        MDLabel:
+            markup: True
+            text: '[font=Cambria][b][color=F2E7FE]Trasy[/color][/b]'
+            #color: rgba(app.blancop)
+            pos_hint: {'center_x': .5, "center_y": .93}
+            # size_hint_x: .35 / para mover de izquierda a derecha las cosas segun un porcentaje
+            halign: 'center'
+            font_size: "10sp"
+            font_style: "H3"
+        Button:
+            size_hint: .10, .05
+            pos_hint: {"center_x": .12, "center_y": .925}
+            background_color: 0,0,0,0
+            on_press: 
+                root.manager.transition.direction = "right"
+                app.root.current = "register"
+            Image:
+                source: 'assets/images/chevron-left.png'
+                size: "126dp", "126dp"
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+        MDLabel:
+            markup: True
+            text: '[b][color=F2E7FE]Eres un estudiante?[/color][/b]'
+            #color: rgba(app.blancop)
+            pos_hint: {'center_x': .6, "center_y": .825}
+            halign: 'left'
+            font_size: "20sp"
+        MDLabel:
+            markup: True
+            text: '[color=F2E7FE]Todo estudiante interesado en subir sus propuestas debera registrase oficialmente con sus datos personales[/color]'
+            #color: rgba(app.blancop)
+            size_hint: .8, .06
+            pos_hint: {'center_x': .5, "center_y": .770}
+            halign: 'left'
+            font_name: "Cambria"
+            font_size: "18sp"
+        Button:
+            markup: True
+            text:'[b]Soy un estudiante[/b]'
+            font_name: "Cambria"
+            size_hint: .8, .06
+            font_size: '26sp'
+            pos_hint: {'center_x': .5, 'center_y': .69}
+            background_color: 0,0,0,0
+            on_press: 
+                root.manager.transition.direction = "left"
+                app.root.current = "registerstudent"
+            canvas.before:
+                Color:
+                    rgba: rgba(app.purpuraOscuro)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [4]
+        MDTextButton:
+            markup: True
+            text: '[font=Cambria][u][color=F2E7FE]No lo soy[/color][/u]'
+            pos_hint: {'center_x': .19, "center_y": .63}
+            halign: 'center'
+            font_size: "18sp"
+            on_press: app.root.current = 'home'
+
+<RegisterStudentWindow>:
+    name: "registerstudent"
+
+    MDFloatLayout:
+        md_bg_color: rgba(app.purpura)
+        MDLabel:
+            markup: True
+            text: '[font=Cambria][b][color=F2E7FE]Trasy[/color][/b]'
+            #color: rgba(app.blancop)
+            pos_hint: {'center_x': .5, "center_y": .93}
+            # size_hint_x: .35 / para mover de izquierda a derecha las cosas segun un porcentaje
+            halign: 'center'
+            font_size: "10sp"
+            font_style: "H3"
+        Button:
+            size_hint: .10, .05
+            pos_hint: {"center_x": .12, "center_y": .925}
+            background_color: 0,0,0,0
+            on_press: 
+                root.manager.transition.direction = "right"
+                app.root.current = "student"
+            Image:
+                source: 'assets/images/chevron-left.png'
+                size: "126dp", "126dp"
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+        MDLabel:
+            markup: True
+            text: '[b][color=F2E7FE]Registro de Estudiante[/color][/b]'
+            pos_hint: {'center_x': .6, "center_y": .825}
+            halign: 'left'
+            font_size: "22sp"
+        MDFloatLayout:
+            size_hint: .8, .07
+            pos_hint: {'center_x': .5, 'center_y': .75}
+            canvas:
+                Color:
+                    rgb: rgba(245, 245, 245, 255)
+                RoundedRectangle:
+                    size: self.size 
+                    pos: self.pos
+                    radius: [4]
+            TextInput:
+                hint_text: "Identificacion"
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                height: self.minimum_height
+                multiline: False
+                hint_text_color: rgba(app.gris)
+                background_color: 0,0,0,0
+                padding: 18
+                font_name: 'Cambria'
+                font_size: '20sp'
+        MDFloatLayout:
+            size_hint: .8, .07
+            pos_hint: {'center_x': .5, 'center_y': .65}
+            canvas:
+                Color:
+                    rgb: rgba(245, 245, 245, 255)
+                RoundedRectangle:
+                    size: self.size 
+                    pos: self.pos
+                    radius: [4]
+            TextInput:
+                hint_text: "Universidad"
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                height: self.minimum_height
+                multiline: False
+                hint_text_color: rgba(app.gris)
+                background_color: 0,0,0,0
+                padding: 18
+                font_name: 'Cambria'
+                font_size: '20sp'
+        MDFloatLayout:
+            size_hint: .8, .07
+            pos_hint: {'center_x': .5, 'center_y': .55}
+            canvas:
+                Color:
+                    rgb: rgba(245, 245, 245, 255)
+                RoundedRectangle:
+                    size: self.size 
+                    pos: self.pos
+                    radius: [4]
+            TextInput:
+                hint_text: "Facultad"
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                height: self.minimum_height
+                multiline: False
+                hint_text_color: rgba(app.gris)
+                background_color: 0,0,0,0
+                padding: 18
+                font_name: 'Cambria'
+                font_size: '20sp'
+        MDFloatLayout:
+            size_hint: .8, .07
+            pos_hint: {'center_x': .5, 'center_y': .45}
+            canvas:
+                Color:
+                    rgb: rgba(245, 245, 245, 255)
+                RoundedRectangle:
+                    size: self.size 
+                    pos: self.pos
+                    radius: [4]
+            TextInput:
+                hint_text: "Promedio Ponderado"
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                height: self.minimum_height
+                multiline: False
+                hint_text_color: rgba(app.gris)
+                background_color: 0,0,0,0
+                padding: 18
+                font_name: 'Cambria'
+                font_size: '20sp'
+        MDFloatLayout:
+            size_hint: .8, .07
+            pos_hint: {'center_x': .5, 'center_y': .35}
+            canvas:
+                Color:
+                    rgb: rgba(245, 245, 245, 255)
+                RoundedRectangle:
+                    size: self.size 
+                    pos: self.pos
+                    radius: [4]
+            TextInput:
+                hint_text: "Semestre Aprobado"
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                height: self.minimum_height
+                multiline: False
+                hint_text_color: rgba(app.gris)
+                background_color: 0,0,0,0
+                padding: 18
+                font_name: 'Cambria'
+                font_size: '20sp'
+        Button:
+            text:'Registrarse'
+            font_name: "Cambria"
+            size_hint: .5, .06
+            font_size: '20sp'
+            pos_hint: {'center_x': .5, 'center_y': .25}
+            background_color: 0,0,0,0
+            on_press: 
+                root.manager.transition.direction = "left"
+                app.root.current = "home"
+            canvas.before:
+                Color:
+                    rgba: rgba(app.purpuraOscuro)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [4]
+
+<HomeWindow>:
+    name: "home"
+
+    # Bottom Navigation Bar
+    MDBottomNavigation:
+        md_bg_color: rgba(app.purpura)
+        panel_color: rgba(app.purpuraOscuro)
+        radius: 16, 16, 0, 0 
+        
+        MDBottomNavigationItem:
+        
+            name: "screen_home"
+
+            text: "Home"
+            icon: 'home'
+            theme_icon_color: "Custom"
+            icon_color: rgba(app.gris)
+
+            md_bg_color: rgba(app.purpura)
+            MDBoxLayout:
+                orientation: 'vertical'
+                md_bg_color: rgba(app.purpura)
+                AppBar:
+                    profile_pict: root.profile_picture
+
+                MDBoxLayout:
+                    md_bg_color: rgba(app.purpura)
+                    
+                    ScrollView:
+                        bar_width: 0
+
+                        MDBoxLayout:
+                            adaptive_height: True
+                            MDBoxLayout:
+                                orientation: 'vertical'
+                                adaptive_height: True
+                                id: timeline
+                            
+                                MDSeparator:
+                                    md_bg_color: rgba(app.blancop)
+                                
+            
+
+        MDBottomNavigationItem:
+            name: "screen_notif"
+            text: "Notificaciones"
+            icon: 'bell-outline'
+            theme_icon_color: "Custom"
+            icon_color: rgba(app.gris)
+
+            md_bg_color: rgba(app.purpura)
+            MDBoxLayout:
+                orientation: 'vertical'
+                md_bg_color: rgba(app.purpura)
+
+                MDBoxLayout:
+                    md_bg_color: rgba(app.purpura)
+                    padding: '35dp'
+                    adaptive_height: True
+
+                    MDFloatLayout:
+                        MDIconButton:
+                            icon: 'bell'
+                            icon_size: "30sp"
+                            theme_icon_color: "Custom"
+                            icon_color: rgba(app.blancop)     
+                            pos_hint: {"center_x": .005, 'center_y': .48 }
+                            halign: 'left'
+
+                        MDLabel:
+                            markup: True
+                            text: '[font=Cambria][b][color=F2E7FE]Notificaciones[/color][/b]'
+                            pos_hint: {"center_x": .5, "center_y": .55}
+                            halign: 'center'
+                            font_size: "10sp"
+                            font_style: "H4"
+
+                        FitImage:
+                            source: app.profile_picture
+                            size_hint: None, None
+                            size: 33, 33
+                            radius: [25,]
+                            pos_hint: {"center_x": .995,"center_y": 0.5}
+
+                MDBoxLayout:
+                    md_bg_color: rgba(app.purpura)
+                    
+                    ScrollView:
+                        bar_width: 0
+
+                        MDBoxLayout:
+                            adaptive_height: True
+
+                            MDBoxLayout:
+                                orientation: 'vertical'
+                                adaptive_height: True
+                                id: listnotification
+                            
+                                MDSeparator:
+                                    md_bg_color: rgba(app.blancop)
+
+
+
+        MDBottomNavigationItem:
+            name: "screen_create"
+            text: "Crear"
+            icon: 'plus-circle-outline'
+            theme_icon_color: "Custom"
+            icon_color: rgba(app.gris)
+            
+            IniciativaWindow:
+
+<AjustesUsuarioWindow>:
+
+    MDFloatLayout:
+        md_bg_color: rgba(app.purpura)
+        MDLabel:
+            markup: True
+            text: '[font=Cambria][b][color=F2E7FE]Ajustes[/color][/b]'
+            #color: rgba(app.blancop)
+            pos_hint: {'center_x': .5, "center_y": .93}
+            # size_hint_x: .35 / para mover de izquierda a derecha las cosas segun un porcentaje
+            halign: 'center'
+            font_size: "10sp"
+            font_style: "H3"
+        Button:
+            size_hint: .10, .05
+            pos_hint: {"center_x": .12, "center_y": .925}
+            background_color: 0,0,0,0
+            on_press: 
+                app.root.current = "home"
+            Image:
+                source: 'assets/images/chevron-left.png'
+                size: "126dp", "126dp"
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+
+        TwoLineAvatarListItem:
+            text: f'[b][color={app.blancop}][size=16]Jose David Macias[/size][/color][/b]'
+            secondary_text: f"[font=Cambria][color={app.blancop}][size=14]{root.usuario} - 28 años[/size][/color]"
+            divider: None
+            _no_ripple_effect: True
+            pos_hint: {'center_y': 0.8 }
+            halign: "center"
+            
+            ImageLeftWidget:
+                source: app.profile_picture 
+                radius: [20, ]
+                pos_hint: {"center_x": 0.5,'center_y': 0.4}
+
+        MDSeparator:
+            pos_hint: {'center_y': 0.7}
+            md_bg_color: rgba(app.blancop)
+
+        TwoLineAvatarIconListItem:
+            text: f'[b][color={app.blancop}][size=16]Tratamiento de datos[/size][/color][/b]'
+            divider: None
+            _no_ripple_effect: True
+            pos_hint: {'center_y': 0.65}
+
+            IconLeftWidget:
+                icon: "chart-donut"
+                icon_size: "30sp"
+                theme_icon_color: "Custom"
+                icon_color: rgba(app.blancop)
+                pos_hint: {"center_y": .26}
+                
+
+            IconRightWidget:
+                icon: "chevron-right"
+                icon_size: "30sp"
+                theme_icon_color: "Custom"
+                icon_color: rgba(app.blancop)
+                pos_hint: {"center_y": .26}
+                
+        MDSeparator:
+            pos_hint: {'center_y': 0.57}
+            md_bg_color: rgba(app.blancop)
+
+<AjustesEstudiantesWindow>:
+
+    AjustesUsuarioWindow:
+
+        MDSeparator:
+            pos_hint: {'center_y': 0.57}
+            md_bg_color: rgba(app.blancop)
+
+        TwoLineAvatarIconListItem:
+            text: f'[b][color={app.blancop}][size=16]Solicitud a lider[/size][/color][/b]'
+            divider: None
+            _no_ripple_effect: True
+            pos_hint: {'center_y': 0.52}
+
+            IconLeftWidget:
+                icon: "account-sync-outline"
+                icon_size: "30sp"
+                theme_icon_color: "Custom"
+                icon_color: rgba(app.blancop)
+                pos_hint: {"center_y": .26}
+                
+
+            IconRightWidget:
+                icon: "chevron-right"
+                icon_size: "30sp"
+                theme_icon_color: "Custom"
+                icon_color: rgba(app.blancop)
+                pos_hint: {"center_y": .26}
+
+        MDSeparator:
+            pos_hint: {'center_y': 0.44}
+            md_bg_color: rgba(app.blancop)
+
+
+<AjustesLider>:
+
+    AjustesUsuarioWindow:
+
+        MDSeparator:
+            pos_hint: {'center_y': 0.57}
+            md_bg_color: rgba(app.blancop)
+
+        TwoLineAvatarIconListItem:
+            text: f'[b][color={app.blancop}][size=16]Administrar Grupo[/size][/color][/b]'
+            divider: None
+            _no_ripple_effect: True
+            pos_hint: {'center_y': 0.52}
+
+            IconLeftWidget:
+                icon: "account-group-outline"
+                icon_size: "30sp"
+                theme_icon_color: "Custom"
+                icon_color: rgba(app.blancop)
+                pos_hint: {"center_y": .26}
+                
+
+            IconRightWidget:
+                icon: "chevron-right"
+                icon_size: "30sp"
+                theme_icon_color: "Custom"
+                icon_color: rgba(app.blancop)
+                pos_hint: {"center_y": .26}
+                on_release:
+                    root.manager.transition.direction = "left"
+                    app.root.current = "lider"
+
+        MDSeparator:
+            pos_hint: {'center_y': 0.44}
+            md_bg_color: rgba(app.blancop)
+
+<LiderWindow>:
+
+    MDFloatLayout:
+        md_bg_color: rgba(app.purpura)
+
+        MDLabel:
+            markup: True
+            text: '[font=Cambria][b][color=F2E7FE]Lider[/color][/b]'
+            #color: rgba(app.blancop)
+            pos_hint: {'center_x': .5, "center_y": .93}
+            # size_hint_x: .35 / para mover de izquierda a derecha las cosas segun un porcentaje
+            halign: 'center'
+            font_size: "10sp"
+            font_style: "H3"
+        Button:
+            size_hint: .10, .05
+            pos_hint: {"center_x": .12, "center_y": .925}
+            background_color: 0,0,0,0
+            on_press: 
+                root.manager.transition.direction = "right"
+                app.root.current = "ajustes_lider"
+            Image:
+                source: 'assets/images/chevron-left.png'
+                size: "126dp", "126dp"
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y  
+
+        MDFillRoundFlatIconButton:
+            icon: 'plus'
+            text: 'Agregar Miembro'
+            font_name: "Cambria"
+            size_hint: .5, .06  
+            font_size: '20sp'
+            pos_hint: {'center_x': .5, 'center_y': .8}
+            md_bg_color: rgba(app.purpuraOscuro)
+
+        MDFillRoundFlatIconButton:
+            icon: 'plus'
+            text: 'Suspender Miembro'
+            font_name: "Cambria"
+            size_hint: .5, .06  
+            font_size: '20sp'
+            pos_hint: {'center_x': .5, 'center_y': .65}
+            md_bg_color: rgba(app.purpuraOscuro)
+
+        MDFillRoundFlatIconButton:
+            icon: 'plus'
+            text: 'Eliminar Miembro'
+            font_name: "Cambria"
+            size_hint: .5, .06  
+            font_size: '20sp'
+            pos_hint: {'center_x': .5, 'center_y': .5}
+            md_bg_color: rgba(app.purpuraOscuro)
+
+
+<IniciativaWindow>
+    dia: diapos
+    MDFloatLayout:
+        md_bg_color: rgba(app.purpura)
+
+        MDLabel:
+            markup: True
+            text: '[font=Cambria][b][color=F2E7FE]Crear Iniciativa[/color][/b]'
+            #color: rgba(app.blancop)
+            pos_hint: {'center_x': .5, "center_y": .93}
+            # size_hint_x: .35 / para mover de izquierda a derecha las cosas segun un porcentaje
+            halign: 'center'
+            font_size: "40sp"
+            font_style: 
+
+        MDLabel:
+            markup: True
+            text: '[b][color=F2E7FE]Titulo de la iniciativa[/color][/b]'
+            pos_hint: {'center_x': .6, "center_y": .825}
+            halign: 'left'
+            font_size: "22sp"
+        MDFloatLayout:
+            size_hint: .8, .07
+            pos_hint: {'center_x': .5, 'center_y': .75}
+            canvas:
+                Color:
+                    rgb: rgba(245, 245, 245, 255)
+                RoundedRectangle:
+                    size: self.size 
+                    pos: self.pos
+                    radius: [4]
+            TextInput:
+                hint_text: "Titulo"
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                height: self.minimum_height
+                multiline: False
+                hint_text_color: rgba(app.gris)
+                background_color: 0,0,0,0
+                padding: 18
+                font_name: 'Cambria'
+                font_size: '20sp'
+        MDLabel:
+            markup: True
+            text: '[b][color=F2E7FE]Video de la iniciativa[/color][/b]'
+            pos_hint: {'center_x': .6, "center_y": .675}
+            halign: 'left'
+            font_size: "22sp"
+        MDFloatLayout:
+            size_hint: .8, .07
+            pos_hint: {'center_x': .5, 'center_y': .6}
+            canvas:
+                Color:
+                    rgb: rgba(245, 245, 245, 255)
+                RoundedRectangle:
+                    size: self.size 
+                    pos: self.pos
+                    radius: [4]
+            TextInput:
+                hint_text: "Link del Video"
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                height: self.minimum_height
+                multiline: False
+                hint_text_color: rgba(app.gris)
+                background_color: 0,0,0,0
+                padding: 18
+                font_name: 'Cambria'
+                font_size: '20sp'
+        MDLabel:
+            
+            markup: True
+            text: '[b][color=F2E7FE]Diapositivas[/color][/b]'
+            pos_hint: {'center_x': .6, "center_y": .525}
+            halign: 'left'
+            font_size: "22sp"
+        MDFloatLayout:
+            size_hint: .8, .07
+            pos_hint: {'center_x': .5, 'center_y': .450}
+            canvas:
+                Color:
+                    rgb: rgba(245, 245, 245, 255)
+                RoundedRectangle:
+                    size: self.size 
+                    pos: self.pos
+                    radius: [4]
+            TextInput:
+                id: diapos
+                disabled: True
+                hint_text: "Diapositivas"
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                height: self.minimum_height
+                multiline: False
+                hint_text_color: rgba(app.gris)
+                background_color: 0,0,0,0
+                padding: 18
+                font_name: 'Cambria'
+                font_size: '20sp'
+            MDIconButton:
+                icon: "paperclip"
+                md_bg_color: rgba(245, 245, 245, 255)
+                theme_icon_color: "Custom"
+                icon_color: rgba(app.gris)
+                pos_hint: {"center_x": .9, "center_y": .5}
+                background_down: ''
+                background_normal: ''
+                on_release:
+                    root.file_chooser()
+        MDLabel:
+            markup: True
+            text: '[b][color=F2E7FE]Explicación de la iniciativa[/color][/b]'
+            pos_hint: {'center_x': .6, "center_y": .375}
+            halign: 'left'
+            font_size: "22sp"                
+        MDFloatLayout:
+            size_hint: .8, .2
+            pos_hint: {'center_x': .5, 'center_y': .235}
+            canvas:
+                Color:
+                    rgb: rgba(245, 245, 245, 255)
+                RoundedRectangle:
+                    size: self.size 
+                    pos: self.pos
+                    radius: [4]
+            TextInput:
+                hint_text: "Explicacion..."
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                height: self.minimum_height
+                multiline: True
+                hint_text_color: rgba(app.gris)
+                background_color: 0,0,0,0
+                padding: 18
+                font_name: 'Cambria'
+                font_size: '20sp' 
+
+        Button:
+            text:'Crear'
+            font_name: "Cambria"
+            size_hint: .3, .06
+            font_size: '20sp'
+            pos_hint: {'center_x': .5, 'center_y': .075}
+            background_color: 0,0,0,0
+            on_press: 
+                root.manager.transition.direction = "left"
+                app.root.current = "student"
+            canvas.before:
+                Color:
+                    rgba: rgba(app.purpuraOscuro)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [4]           
+
+
+
+<CommentsWindow>:
+
+    MDFloatLayout:
+        md_bg_color: rgba(app.purpura)
+
+        MDBoxLayout:
+            md_bg_color: rgba(app.purpura)
+            pos_hint: {'top': .575}
+            ScrollView:
+                bar_width: 0
+                MDBoxLayout:
+                    orientation: 'vertical'
+                    adaptive_height: True
+                    id: listcomment
+
+                    MDSeparator:
+                        md_bg_color: rgba(app.blancop)
+
+
+                                        
+                    # MDCard:
+                    #     md_bg_color: rgba(app.purpura)
+                    #     orientation: 'vertical'
+                    #     size_hint_y: None
+                    #     spacing: 0
+                    #     elevation: 0
+                    #     OneLineAvatarListItem:
+                    #         text: "David Santos"
+                    #         divider: None
+                    #         ImageLeftWidget:
+                    #             source: app.profile_picture 
+                    #     MDBoxLayout:
+                    #         height: "50dp"
+                    #         adaptive_height: True
+                    #         MDLabel:
+                    #             text: 'Amen ' * 20
+                    #     MDSeparator:
+                    #         md_bg_color: rgba(app.blancop)
+
+                            
+
+
+        MDBoxLayout:
+            md_bg_color: rgba(app.purpura)
+            adaptive_height: True
+
+            MDFloatLayout:
+                size_hint: .75, .55
+                pos_hint: {'center_y': .5}
+                canvas:
+                    Color:
+                        rgb: rgba(245, 245, 245, 255)
+                    RoundedRectangle:
+                        size: self.size
+                        pos: self.pos
+                        radius: [4]
+                TextInput:
+                    hint_text: "Añadir un comentario"
+                    size_hint_x: .75
+                    pos_hint: {'center_x': .50, 'center_y': .5}
+                    background_color: 0,0,0,0
+                    multiline: False
+                    hint_text_color: rgba(app.gris)
+                    padding: 16
+                    font_name: 'Cambria'
+                    font_size: '18sp'
+                MDIconButton:
+                    icon: "send"
+                    theme_icon_color: "Custom"
+                    icon_color: rgba(app.gris)
+                    pos_hint: {"center_x": .9, "center_y": .5}
+                    background_down: ''
+                    background_normal: ''
+                    
+
+                OneLineAvatarListItem:
+                    pos_hint: {'center_y': .5}
+                    disabled: True
+                    ImageLeftWidget:
+                        source: app.profile_picture
+                        radius: [25,]
+        BoxLayout:
+            size_hint_y: None
+            height: "300dp"
+            orientation: 'vertical'
+            pos_hint: {'top': 1}
+
+            FitImage:
+                size_hint_y: 3
+                source: "https://img.youtube.com/vi/nuQenvlf7Rk/maxresdefault.jpg"
+    
+        MDIconButton:
+            icon: 'dots-vertical'
+            icon_size: '26'
+            theme_icon_color: "Custom"
+            icon_color: rgba(app.blancop)
+            pos_hint: {"center_x": .88, "center_y": .925}
+        Button:
+            size_hint: .10, .05
+            pos_hint: {"center_x": .12, "center_y": .925}
+            background_color: 0,0,0,0
+            on_press: 
+                root.manager.transition.direction = "right"
+                app.root.current = "home"
+            Image:
+                source: 'assets/images/chevron-left.png'
+                size: "126dp", "126dp"
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y 
+
+        MDBoxLayout:
+            padding: 5, 0, 0, 0         
+            spacing: 0
+            adaptive_height: True 
+            pos_hint: {"center_y": .625}
+
+            OneLineIconListItem:
+                text: f"[color={app.blancop}][size=18]57[/size][/color]"
+                divider: None
+                _no_ripple_effect: True    
+                
+                IconLeftWidget:
+                    icon: "star-outline"
+                    icon_size: "30sp"
+                    theme_icon_color: "Custom"
+                    icon_color: rgba(app.blancop)
+                    pos_hint: {"center_y": .55}
+                    on_release:
+                        root.show_estrellas()
+                        self.icon = "star" \
+                        if self.icon == "star-outline" else "star-outline"
+                
+            OneLineIconListItem:
+                text: f"[color={app.blancop}][size=18]23[/size][/color]"
+                divider: None
+                _no_ripple_effect: True
+                
+                IconLeftWidget:
+                    icon: "comment"
+                    icon_size: "30sp"
+                    theme_icon_color: "Custom"
+                    icon_color: rgba(app.blancop)
+
+
+<CoordinadorWindow>:
+    
+    MDFloatLayout:
+        md_bg_color: rgba(app.purpura)
+        MDLabel:
+            markup: True
+            text: '[font=Cambria][b][color=F2E7FE]Coordinador[/color][/b]'
+            #color: rgba(app.blancop)
+            pos_hint: {'center_x': .5, "center_y": .93}
+            # size_hint_x: .35 / para mover de izquierda a derecha las cosas segun un porcentaje
+            halign: 'center'
+            font_size: "10sp"
+            font_style: "H3"
+
+
+<AdministradorWindow>:
+    
+    MDFloatLayout:
+        md_bg_color: rgba(app.purpura)
+        MDLabel:
+            markup: True
+            text: '[font=Cambria][b][color=F2E7FE]Administrador[/color][/b]'
+            #color: rgba(app.blancop)
+            pos_hint: {'center_x': .5, "center_y": .93}
+            # size_hint_x: .35 / para mover de izquierda a derecha las cosas segun un porcentaje
+            halign: 'center'
+            font_size: "10sp"
+            font_style: "H3"
+        MDFillRoundFlatIconButton:
+            icon: 'plus'
+            text: 'Nuevo Coordinador'
+            font_name: "Cambria"
+            size_hint: .5, .06  
+            font_size: '20sp'
+            pos_hint: {'center_x': .5, 'center_y': .8}
+            md_bg_color: rgba(app.purpuraOscuro)
+
+        MDFillRoundFlatIconButton:
+            icon: 'plus'
+            text: 'Asignar Coordinador'
+            font_name: "Cambria"
+            size_hint: .5, .06  
+            font_size: '20sp'
+            pos_hint: {'center_x': .5, 'center_y': .65}
+            md_bg_color: rgba(app.purpuraOscuro)
+
+        Button:
+            text:'Salir'
+            font_name: "Cambria"
+            size_hint: .3, .06
+            font_size: '20sp'
+            pos_hint: {'center_x': .5, 'center_y': .075}
+            background_color: 0,0,0,0
+            on_release:
+                root.manager.transition.direction = "down"
+                app.root.current = "home"
+            
+            canvas.before:
+                Color:
+                    rgba: rgba(app.purpuraOscuro)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [4]         
+
+<FormularioWindow>:
+
+    MDFloatLayout:
+        md_bg_color: rgba(app.purpura)
+
+        MDLabel:
+            markup: True
+            text: '[font=Cambria][b][color=F2E7FE]Formulario de Inquietud[/color][/b]'
+            #color: rgba(app.blancop)
+            pos_hint: {'center_x': .5, "center_y": .93}
+            # size_hint_x: .35 / para mover de izquierda a derecha las cosas segun un porcentaje
+            halign: 'center'
+            font_size: "40sp"
+        Button:
+            size_hint: .10, .05
+            pos_hint: {"center_x": .12, "center_y": .925}
+            background_color: 0,0,0,0
+            on_press: 
+                root.manager.transition.direction = "right"
+                app.root.current = "home"
+            Image:
+                source: 'assets/images/chevron-left.png'
+                size: "126dp", "126dp"
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+        MDLabel:
+            markup: True
+            text: '[b][color=F2E7FE]Razón de la inquietud[/color][/b]'
+            pos_hint: {'center_x': .6, "center_y": .825}
+            halign: 'left'
+            font_size: "22sp"
+        MDFloatLayout:
+            size_hint: .8, .07
+            pos_hint: {'center_x': .5, 'center_y': .75}
+            canvas:
+                Color:
+                    rgb: rgba(245, 245, 245, 255)
+                RoundedRectangle:
+                    size: self.size 
+                    pos: self.pos
+                    radius: [4]
+            TextInput:
+                hint_text: "Razón"
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                height: self.minimum_height
+                multiline: False
+                hint_text_color: rgba(app.gris)
+                background_color: 0,0,0,0
+                padding: 18
+                font_name: 'Cambria'
+                font_size: '20sp'
+        MDLabel:
+            markup: True
+            text: '[b][color=F2E7FE]Describe la inquietud que tengas[/color][/b]'
+            pos_hint: {'center_x': .6, "center_y": .675}
+            halign: 'left'
+            font_size: "22sp"
+        MDFloatLayout:
+            size_hint: .8, .5   
+            pos_hint: {'center_x': .5, 'center_y': .380}
+            canvas:
+                Color:
+                    rgb: rgba(245, 245, 245, 255)
+                RoundedRectangle:
+                    size: self.size 
+                    pos: self.pos
+                    radius: [4]
+            TextInput:
+                hint_text: "Inquietud..."
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                height: self.minimum_height
+                multiline: True
+                hint_text_color: rgba(app.gris)
+                background_color: 0,0,0,0
+                padding: 18
+                font_name: 'Cambria'
+                font_size: '20sp'
+
+        Button:
+            text:'Enviar'
+            font_name: "Cambria"
+            size_hint: .3, .06
+            font_size: '20sp'
+            pos_hint: {'center_x': .5, 'center_y': .075}
+            background_color: 0,0,0,0
+            
+            canvas.before:
+                Color:
+                    rgba: rgba(app.purpuraOscuro)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [4]           

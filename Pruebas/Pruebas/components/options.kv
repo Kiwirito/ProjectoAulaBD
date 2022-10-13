@@ -1,0 +1,40 @@
+
+<Opciones>:
+    adaptive_height: True
+    orientation: 'vertical'
+    spacing: 10
+
+    MDFloatLayout:
+        md_bg_color: rgba("FFFFFF")
+        OneLineIconListItem:
+            markup: True
+            text: f'[b][color={app.purpura}][size=22]Contactar[/size][/color][/b]'
+            pos_hint: {'center_x': 0.5, 'center_y': 0.9 }
+            on_release:
+                app.root.current = "formulario"
+             
+         
+
+            IconLeftWidget:
+                icon: "clipboard-text-outline"
+                icon_size: "28sp"
+                theme_icon_color: "Custom"
+                icon_color: rgba(app.purpura)
+                pos_hint: {'center_y': 0.55 }
+            
+        MDSeparator:
+            pos_hint: {'center_x': 0.5,'center_y': 0.6}
+            md_bg_color: rgba(app.purpura)
+
+        OneLineIconListItem:
+            markup: True
+            text: f'[b][color={app.purpura}][size=22]Eliminar[/size][/color][/b]'
+            pos_hint: {'center_x': 0.5, 'center_y': 0.25 }
+            IconLeftWidget:
+                icon: "file-document-remove-outline"
+                icon_size: "28sp"
+                theme_icon_color: "Custom"
+                icon_color: rgba(app.purpura)                
+                pos_hint: {'center_y': 0.6 }
+        
+            

@@ -1,0 +1,74 @@
+<Estrellas>:
+    adaptive_height: True
+    orientation: 'horizontal'
+    spacing: 10
+
+    MDIconButton:
+        id: starone
+        icon: "star-outline"
+        icon_size: "30sp"
+        theme_icon_color: "Custom"
+        icon_color: rgba(app.purpura)
+        on_release:
+            self.icon = "star" \
+            if self.icon == "star-outline" else "star-outline"
+
+    MDIconButton:
+        id: startwo
+        icon: "star-outline"
+        icon_size: "30sp"
+        theme_icon_color: "Custom"
+        icon_color: rgba(app.purpura)
+        on_release:
+            self.icon = "star" \
+            if self.icon == "star-outline" else "star-outline"
+            starone.icon = "star" \
+            if starone.icon == "star-outline" else "star-outline"
+            
+    MDIconButton:
+        id: startree
+        icon: "star-outline"
+        icon_size: "30sp"
+        theme_icon_color: "Custom"
+        icon_color: rgba(app.purpura)
+        on_release:
+            self.icon = "star" \
+            if self.icon == "star-outline" else "star-outline"
+            starone.icon = "star" \
+            if starone.icon == "star-outline" else "star-outline"
+            startwo.icon = "star" \
+            if startwo.icon == "star-outline" else "star-outline"
+
+    MDIconButton:
+        id: starfour
+        icon: "star-outline"
+        icon_size: "30sp"
+        theme_icon_color: "Custom"
+        icon_color: rgba(app.purpura)
+        on_release:
+            self.icon = "star" \
+            if self.icon == "star-outline" else "star-outline"
+            starone.icon = "star" \
+            if starone.icon == "star-outline" else "star-outline"
+            startwo.icon = "star" \
+            if startwo.icon == "star-outline" else "star-outline"
+            startree.icon = "star" \
+            if startree.icon == "star-outline" else "star-outline"
+            
+    MDIconButton:
+        id: starfive
+        icon: "star-outline"
+        icon_size: "30sp"
+        theme_icon_color: "Custom"
+        icon_color: rgba(app.purpura)
+        on_release:
+            self.icon = "star" \
+            if self.icon == "star-outline" else "star-outline"
+            starone.icon = "star" \
+            if starone.icon == "star-outline" else "star-outline"
+            startwo.icon = "star" \
+            if startwo.icon == "star-outline" else "star-outline"
+            startree.icon = "star" \
+            if startree.icon == "star-outline" else "star-outline"
+            starfour.icon = "star" \
+            if starfour.icon == "star-outline" else "star-outline"

@@ -4,9 +4,11 @@ from asyncio.windows_events import NULL
 from cProfile import label
 import json
 
+from kivymd.icon_definitions import md_icons
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.label import MDLabel
 from kivymd.uix.menu import MDDropdownMenu
+from kivymd.uix.scrollview import MDScrollView
 from select import select
 
 #Video Player
@@ -39,14 +41,17 @@ from kivy.core.text import LabelBase
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.properties import ObjectProperty, StringProperty
 from kivymd.uix.pickers import MDDatePicker
-from components.comments import ListComments
-from components.post_card import PostCard
-from components.stardialog import Estrellas
 from kivymd.uix.filemanager import MDFileManager
 from kivymd.toast import toast
 from kivymd.uix.button import MDFlatButton, MDRaisedButton
 from kivymd.uix.dialog import MDDialog
+from kivy.uix.boxlayout import BoxLayout
 
+#Components Import
+from components.comments import ListComments
+from components.post_card import PostCard
+from components.stardialog import Estrellas
+from components.listcoord import Item
 
 #Window
 import sys
@@ -254,8 +259,60 @@ class IniciativaWindow(Screen):
 class CoordinadorWindow(Screen):
     pass
 
-class AdministradorWindow(Screen):
+class Content(BoxLayout):
     pass
+
+class AdministradorWindow(Screen):
+    
+            
+    def list_coord(self):
+        Mcontent = Content()
+
+        with open('Pruebas/assets/data/posts.json') as f_obj:
+            data = json.load(f_obj)
+            for username in data:
+                items = Item(name=username)
+                Mcontent.ids.Mcontainer.add_widget(items)
+                
+            
+        # for x in range(0, 7):
+        #     items = Item(name= f"Perez #{x}")
+        #     Mcontent.ids.Mcontainer.add_widget(items)
+
+        self.MSetFileOptionsdialog = MDDialog(
+            md_bg_color= rgba("#FFFFFF"),
+            type="custom", 
+            content_cls=Mcontent, 
+            buttons=[
+                    MDFlatButton(
+                        text="[size=14sp]Cancelar[/size]",
+                        size_hint=(3,1),
+                        theme_text_color="Custom",
+                        text_color=rgba("#6200EE"),
+                        on_release=self.cerrar_list
+                    ),
+                    MDRaisedButton(
+                        text="[size=14sp]Guardar[/size]",
+                        size_hint=(3,1),
+                        theme_text_color="Custom",
+                        text_color=rgba("#FFFFFF"),
+                        on_release=self.cerrar_list
+                    ),
+                ],
+            )
+        self.MSetFileOptionsdialog.open()
+        
+    def cerrar_list(self, *args):
+        self.MSetFileOptionsdialog.dismiss(force = True)
+    
+    # def list_coords(self):
+    #     icons = list(md_icons.keys())
+    #     for i in range(30):
+    #         self.ids.scroll.add_widget(ItemCheckbox(
+    #             text=f"Item {i}", 
+    #             icon=icons[i]
+    #             )
+    #         )        
 
 class FormularioWindow(Screen):
     pass
@@ -291,6 +348,7 @@ class KivyApp(MDApp):
         Builder.load_file('components/stardialog.kv')
         Builder.load_file('components/comments.kv')
         Builder.load_file('components/options.kv')
+        Builder.load_file('components/listcoord.kv')
 
 
         sm = ScreenManager()
@@ -310,7 +368,7 @@ class KivyApp(MDApp):
         sm.add_widget(IniciativaWindow(name='iniciativa'))
         sm.add_widget(FormularioWindow(name='formulario'))
 
-        sm.current = "lider"
+        sm.current = "login"
         
         return sm
     

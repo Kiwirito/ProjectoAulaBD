@@ -1,0 +1,30 @@
+#:import RightCheckbox components.listcoord.RightCheckbox
+
+<Item>:
+    #_txt_left_pad: "12dp"
+    
+    text: f'[b][color={app.gris}][size=15]{root.name}[/size][/color][/b]'
+
+    IconLeftWidget:
+        id: iconsito
+        icon: "account"
+        theme_icon_color: "Custom"
+        icon_color: rgba(app.gris)
+
+    RightCheckbox:
+        color: rgba(app.gris)
+        on_press:
+            iconsito.icon = "account-check" \
+            if self.active else "account"
+            iconsito.icon_color = rgba(app.purpura) \
+            if self.active else rgba(app.gris)
+            self.color = rgba(app.purpura) \ 
+            if self.active else rgba(app.gris)
+
+
+            
+
+        
+
+
+

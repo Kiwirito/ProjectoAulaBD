@@ -1152,7 +1152,53 @@
             halign: 'center'
             font_size: "10sp"
             font_style: "H3"
+        MDFillRoundFlatIconButton:
+            icon: 'plus'
+            text: 'Crear Coordinador'
+            font_name: "Cambria"
+            size_hint: .5, .06  
+            font_size: '20sp'
+            pos_hint: {'center_x': .5, 'center_y': .8}
+            md_bg_color: rgba(app.purpuraOscuro)
 
+        MDFillRoundFlatIconButton:
+            icon: 'plus'
+            text: 'Asignar Coordinador'
+            font_name: "Cambria"
+            size_hint: .5, .06  
+            font_size: '20sp'
+            pos_hint: {'center_x': .5, 'center_y': .65}
+            md_bg_color: rgba(app.purpuraOscuro)
+            on_release:
+                root.list_coord()
+
+        MDFillRoundFlatIconButton:
+            icon: 'plus'
+            text: 'Generar Reportes'
+            font_name: "Cambria"
+            size_hint: .5, .06  
+            font_size: '20sp'
+            pos_hint: {'center_x': .5, 'center_y': .5}
+            md_bg_color: rgba(app.purpuraOscuro)
+
+        Button:
+            text:'Salir'
+            font_name: "Cambria"
+            size_hint: .3, .06
+            font_size: '20sp'
+            pos_hint: {'center_x': .5, 'center_y': .075}
+            background_color: 0,0,0,0
+            on_release:
+                root.manager.transition.direction = "down"
+                app.root.current = "home"
+            
+            canvas.before:
+                Color:
+                    rgba: rgba(app.purpuraOscuro)
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [4]         
 
 <AdministradorWindow>:
     
@@ -1169,7 +1215,7 @@
             font_style: "H3"
         MDFillRoundFlatIconButton:
             icon: 'plus'
-            text: 'Nuevo Coordinador'
+            text: 'Crear Coordinador'
             font_name: "Cambria"
             size_hint: .5, .06  
             font_size: '20sp'
@@ -1183,6 +1229,17 @@
             size_hint: .5, .06  
             font_size: '20sp'
             pos_hint: {'center_x': .5, 'center_y': .65}
+            md_bg_color: rgba(app.purpuraOscuro)
+            on_release:
+                root.list_coord()
+
+        MDFillRoundFlatIconButton:
+            icon: 'plus'
+            text: 'Generar Reportes'
+            font_name: "Cambria"
+            size_hint: .5, .06  
+            font_size: '20sp'
+            pos_hint: {'center_x': .5, 'center_y': .5}
             md_bg_color: rgba(app.purpuraOscuro)
 
         Button:
@@ -1297,3 +1354,14 @@
                     size: self.size
                     pos: self.pos
                     radius: [4]           
+
+<Content>:
+    orientation: "vertical"
+    spacing: "12dp"
+    size_hint_y: None
+    height: "400dp"
+
+    ScrollView:
+
+        MDList:
+            id: Mcontainer

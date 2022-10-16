@@ -11,10 +11,9 @@
             text: f'[b][color={app.purpura}][size=22]Contactar[/size][/color][/b]'
             pos_hint: {'center_x': 0.5, 'center_y': 0.9 }
             on_release:
+                app.root.transition.direction = "left"
                 app.root.current = "formulario"
              
-         
-
             IconLeftWidget:
                 icon: "clipboard-text-outline"
                 icon_size: "28sp"

@@ -26,9 +26,12 @@
             adaptive_height: True
             pos_hint: {'center_x': .51}
             MDLabel:
-                text: 'Amen ' * 15
+                text: root.comment
                 size_hint_x: .35
                 halign: 'left'
                 valign: 'middle'
         MDSeparator:
             md_bg_color: rgba(app.blancop)
+<ImagenIniciativa>:
+    size_hint_y: 3
+    source: root.posteo

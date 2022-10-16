@@ -1,0 +1,34 @@
+<ItemIniciativa>:  
+    #_txt_left_pad: "12dp"
+    text: f'[b][color={app.gris}][size=15]{root.name}[/size][/color][/b]'
+
+    IconLeftWidget:
+        id: iconsito
+        icon: "lightbulb-outline"
+        theme_icon_color: "Custom"
+        icon_color: rgba(app.gris)
+
+    IconRightWidget:
+        icon: "chevron-right"
+        theme_icon_color: "Custom"
+        icon_color: rgba(app.gris)
+        on_release:
+            app.datos_solicitud(root.name)
+            app.root.current = "aprobar_iniciativa"
+            
+
+<ItemIniciativaWindow>:
+
+    MDFloatLayout:
+        md_bg_color: rgba(app.purpura)
+
+<ContentList>:
+    orientation: "vertical"
+    spacing: "12dp"
+    size_hint_y: None
+    height: "400dp"
+
+    ScrollView:
+
+        MDList:
+            id: Mcontainer
